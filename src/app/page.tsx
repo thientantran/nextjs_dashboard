@@ -1,7 +1,6 @@
 "use client"
 import Dashboard from './dashboard/page'
 import Head from 'next/head'
-import Header from './components/Header/Header'
 import SideMenu from './components/SideMenu/page'
 import Login from './components/Login/Login'
 import { useSession } from 'next-auth/react'
@@ -19,7 +18,6 @@ const Home: React.FC = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
     <main className={scss.main}>
-      <Header/>
       {
         session && (<>
           <SideMenu/>
