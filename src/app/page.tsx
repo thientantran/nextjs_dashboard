@@ -3,7 +3,7 @@ import Dashboard from './dashboard/page'
 import Head from 'next/head'
 import Header from './components/Header/page'
 import SideMenu from './components/SideMenu/page'
-
+import Login from './components/Login/page'
 export default function Home() {
   return (
     <div>
@@ -17,6 +17,7 @@ export default function Home() {
       <Header/>
       <SideMenu/>
       <Dashboard/>
+      <Login/>
     </main>
     </div>
     
