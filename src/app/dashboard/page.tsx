@@ -1,3 +1,4 @@
+'use client'
 import { Box, Grid, Paper } from '@mui/material'
 import scss from './Dashboard.module.scss'
 export default function Dashboard() {

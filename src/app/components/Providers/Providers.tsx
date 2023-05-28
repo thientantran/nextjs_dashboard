@@ -1,7 +1,7 @@
 'use client'
-import React, { ReactNode } from 'react'
-import { SessionProvider } from 'next-auth/react'
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
+import { SessionProvider } from 'next-auth/react'
+import React, { ReactNode } from 'react'
 import Header from '../Header/Header'
 import darkThemeOption from '../theme/darkTheme'
 import lightThemeOption from '../theme/lightTheme'
@@ -9,7 +9,7 @@ interface Props {
   children: ReactNode
 }
 
-const ColorModeContext = React.createContext({ toggleColorMode: () => {} })
+const ColorModeContext = React.createContext({ toggleColorMode: () => { } })
 
 const Providers = ({ children }: Props) => {
   const [mode, setMode] = React.useState<'light' | 'dark'>('dark')
@@ -60,7 +60,6 @@ const Providers = ({ children }: Props) => {
           <Header ColorModeContext={ColorModeContext} />
           {children}
         </SessionProvider>
-        ;
       </ThemeProvider>
     </ColorModeContext.Provider>
   )

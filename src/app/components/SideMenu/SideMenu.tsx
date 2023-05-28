@@ -1,12 +1,27 @@
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import MailIcon from '@mui/icons-material/Mail';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import { Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, useMediaQuery } from '@mui/material';
-import { CSSObject, Theme, useTheme } from '@mui/material/styles';
-import * as React from 'react';
-import scss from './SideMenu.module.scss';
+import { Settings } from "@mui/icons-material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import EqualizerIcon from "@mui/icons-material/Equalizer";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import Person2Icon from "@mui/icons-material/Person2";
+import IconButton from "@mui/material/IconButton";
+import { CSSObject } from "@mui/system";
+import NextLink from "next/link";
+import * as React from "react";
+import scss from "./SideMenu.module.scss";
 
+import {
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Theme,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -30,6 +45,14 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
+const menuRouteList = ["data", "profile", "settings", ""];
+const menuListTranslations = ["Data", "Profile", "Settings", "Sign Out"];
+const menuListIcons = [
+  <EqualizerIcon />,
+  <Person2Icon />,
+  <Settings />,
+  <ExitToAppIcon />,
+];
 
 export default function SideMenu() {
   const theme = useTheme();
@@ -66,52 +89,32 @@ export default function SideMenu() {
         </IconButton>
       </div>
       <Divider />
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+        {menuListTranslations.map((text, index) => (
           <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
+            <NextLink className={scss.link}
+              href={`/dashboard/${menuRouteList[index]}`}>
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
                 }}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {menuListIcons[index]}
+                </ListItemIcon>
+                <ListItemText primary={text} sx={{ color: theme.palette.text.primary, opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </NextLink>
+
           </ListItem>
         ))}
       </List>
