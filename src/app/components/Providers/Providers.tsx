@@ -1,28 +1,27 @@
-"use client";
-import React, { ReactNode } from "react";
-import { SessionProvider } from "next-auth/react";
-import {CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import Header from "../Header/Header";
-import darkThemeOption from "../theme/darkTheme";
-import lightThemeOption from "../theme/lightTheme";
+'use client'
+import React, { ReactNode } from 'react'
+import { SessionProvider } from 'next-auth/react'
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
+import Header from '../Header/Header'
+import darkThemeOption from '../theme/darkTheme'
+import lightThemeOption from '../theme/lightTheme'
 interface Props {
-  children: ReactNode;
+  children: ReactNode
 }
 
-const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+const ColorModeContext = React.createContext({ toggleColorMode: () => {} })
 
-const Providers = ({children}: Props) => {
-
-  const [mode, setMode] = React.useState<'light' | 'dark'>('light');
+const Providers = ({ children }: Props) => {
+  const [mode, setMode] = React.useState<'light' | 'dark'>('dark')
 
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-      },
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
+      }
     }),
-    [],
-  );
+    []
+  )
 
   // const theme = React.useMemo(
   //   () =>
@@ -36,35 +35,34 @@ const Providers = ({children}: Props) => {
 
   // const lightThemeChosen = createTheme({...lightTheme})
   // const darkThemeChosen = createTheme({...darkTheme})
-  
-
 
   const darkTheme = React.useMemo(
     () =>
       createTheme({
         ...darkThemeOption
-    }),
-    [],
-  )  
-
-
-  const lightTheme = React.useMemo(
-      () => 
-        createTheme({
-          ...lightThemeOption,
       }),
-      [],
+    []
   )
 
-  return(
-  <ColorModeContext.Provider value={colorMode}>
-    <ThemeProvider theme={mode === "dark" ? darkTheme : lightTheme}>
-      <SessionProvider>
-        <CssBaseline/>
-        <Header ColorModeContext={ColorModeContext}/>
-        {children}
-      </SessionProvider>;
-    </ThemeProvider>
-  </ColorModeContext.Provider>)
-};
-export default Providers;
+  const lightTheme = React.useMemo(
+    () =>
+      createTheme({
+        ...lightThemeOption
+      }),
+    []
+  )
+
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={mode === 'dark' ? darkTheme : lightTheme}>
+        <SessionProvider>
+          <CssBaseline />
+          <Header ColorModeContext={ColorModeContext} />
+          {children}
+        </SessionProvider>
+        ;
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  )
+}
+export default Providers
