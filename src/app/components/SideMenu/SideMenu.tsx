@@ -2,7 +2,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MailIcon from '@mui/icons-material/Mail';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import { Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, useMediaQuery } from '@mui/material';
 import { CSSObject, Theme, useTheme } from '@mui/material/styles';
 import * as React from 'react';
 import scss from './SideMenu.module.scss';
@@ -34,28 +34,34 @@ const closedMixin = (theme: Theme): CSSObject => ({
 export default function SideMenu() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
-  const handleDrawerClose = () => {
+  const mobileCheck = useMediaQuery("(min-width: 600px");
+  const handleDrawerToggle = () => {
     setOpen(!open);
   };
 
   return (
-    <Drawer variant="permanent" open={open} sx={{
+    <Drawer variant="permanent" anchor="left" open={open} sx={{
       width: drawerWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap',
-      boxSizing: 'border-box',
-      ...(open && {
-        ...openedMixin(theme),
-        '& .MuiDrawer-paper': openedMixin(theme),
-      }),
-      ...(!open && {
-        ...closedMixin(theme),
-        '& .MuiDrawer-paper': closedMixin(theme),
-      })
+
+      [`& .MuiDrawer-paper`]: {
+        left: 0,
+        top: mobileCheck ? 64 : 57,
+        flexShrink: 0,
+        whiteSpace: 'nowrap',
+        boxSizing: 'border-box',
+        ...(open && {
+          ...openedMixin(theme),
+          '& .MuiDrawer-paper': openedMixin(theme),
+        }),
+        ...(!open && {
+          ...closedMixin(theme),
+          '& .MuiDrawer-paper': closedMixin(theme),
+        })
+      }
+
     }}>
       <div className={scss.drawHeader}>
-        <IconButton onClick={handleDrawerClose}>
+        <IconButton onClick={handleDrawerToggle}>
           {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
         </IconButton>
       </div>
