@@ -3,6 +3,7 @@ import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
 import { SessionProvider } from 'next-auth/react'
 import React, { ReactNode } from 'react'
 import Header from '../Header/Header'
+import Layout from '../Layout/Layout'
 import darkThemeOption from '../theme/darkTheme'
 import lightThemeOption from '../theme/lightTheme'
 interface Props {
@@ -13,7 +14,6 @@ const ColorModeContext = React.createContext({ toggleColorMode: () => { } })
 
 const Providers = ({ children }: Props) => {
   const [mode, setMode] = React.useState<'light' | 'dark'>('dark')
-
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
@@ -22,19 +22,6 @@ const Providers = ({ children }: Props) => {
     }),
     []
   )
-
-  // const theme = React.useMemo(
-  //   () =>
-  //     createTheme({
-  //       palette: {
-  //         mode,
-  //       },
-  //     }),
-  //   [mode],
-  // );
-
-  // const lightThemeChosen = createTheme({...lightTheme})
-  // const darkThemeChosen = createTheme({...darkTheme})
 
   const darkTheme = React.useMemo(
     () =>
@@ -58,7 +45,9 @@ const Providers = ({ children }: Props) => {
         <SessionProvider>
           <CssBaseline />
           <Header ColorModeContext={ColorModeContext} />
-          {children}
+          <Layout>
+            {children}
+          </Layout>
         </SessionProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>

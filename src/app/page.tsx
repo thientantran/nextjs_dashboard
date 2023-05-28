@@ -1,11 +1,10 @@
 'use client'
-import Dashboard from './dashboard/page'
-import Head from 'next/head'
-import SideMenu from './components/SideMenu/SideMenu'
-import Login from './components/Login/Login'
 import { useSession } from 'next-auth/react'
-import scss from './Home.module.scss'
+import Head from 'next/head'
 import React from 'react'
+import scss from './Home.module.scss'
+import Login from './components/Login/Login'
+import Dashboard from './dashboard/page'
 const Home: React.FC = () => {
   // cho nay can add type cho Home
   const { data: session } = useSession()
@@ -20,7 +19,7 @@ const Home: React.FC = () => {
       <main className={scss.main}>
         {session && (
           <>
-            <SideMenu />
+            {/* <SideMenu /> */}
             <Dashboard />
           </>
         )}
