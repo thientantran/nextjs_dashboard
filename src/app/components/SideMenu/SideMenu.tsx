@@ -22,6 +22,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { signOut } from "next-auth/react";
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -62,6 +63,10 @@ export default function SideMenu() {
     setOpen(!open);
   };
 
+  const handleListItemButtonClick = (text: string) => {
+    text === "Sign Out" ? signOut() : setOpen(false);
+  }
+
   return (
     <Drawer variant="permanent" anchor="left" open={open} sx={{
       width: drawerWidth,
@@ -96,6 +101,9 @@ export default function SideMenu() {
             <NextLink className={scss.link}
               href={`/dashboard/${menuRouteList[index]}`}>
               <ListItemButton
+                title={text}
+                aria-lable={text}
+                onClick={() => handleListItemButtonClick(text)}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
